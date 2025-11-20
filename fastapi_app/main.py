@@ -1,13 +1,15 @@
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
 from api import api_router
 from core.config import settings
-from core.models import db_helper
-from core.logging import setup_logging
 from core.cors import setup_cors
 from core.exceptions import setup_exception_handlers
+from core.logging import setup_logging
+from core.models import db_helper
 from middleware.request_logger import RequestLoggingMiddleware
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -35,7 +37,6 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-
 
 if __name__ == "__main__":
     import uvicorn
