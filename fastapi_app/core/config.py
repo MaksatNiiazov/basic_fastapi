@@ -28,6 +28,19 @@ class DatabaseConfig(BaseModel):
     }
 
 
+class LoggingConfig(BaseModel):
+    level: str = "INFO"
+    file_enabled: bool = True
+    file_path: str = "logs/app.log"
+    file_max_bytes: int = 10_000_000
+    file_backup_count: int = 5
+    console_enabled: bool = True
+
+class CorsConfig(BaseModel):
+    allow_origins: list[str] = ["*"]
+    allow_credentials: bool = True
+    allow_methods: list[str] = ["*"]
+    allow_headers: list[str] = ["*"]
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -36,9 +49,12 @@ class Settings(BaseSettings):
         env_nested_delimiter="__",
         env_prefix="FASTAPI_CONFIG__",
     )
+
     run: RunConfig = RunConfig()
     api: ApiConfig = ApiConfig()
     db: DatabaseConfig = DatabaseConfig()
+    logging: LoggingConfig = LoggingConfig()
+    cors: CorsConfig = CorsConfig()
 
 
 settings = Settings()
