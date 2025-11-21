@@ -13,7 +13,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
 
         response = await call_next(request)
 
-        process_time = (time.time() - start_time) * 1000  # ms
+        process_time = (time.time() - start_time) * 1000
 
         logger.info(
             "%s %s | status=%s | duration=%.2f ms | ip=%s",

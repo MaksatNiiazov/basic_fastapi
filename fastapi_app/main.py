@@ -41,13 +41,3 @@ def create_app() -> FastAPI:
 
 app = create_app()
 
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(
-        "main:app",   # ← ВАЖНО: импорт-строка, не объект!
-        host=settings.run.host,
-        port=settings.run.port,
-        reload=True,
-    )

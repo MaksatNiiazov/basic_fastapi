@@ -63,8 +63,9 @@ def setup_logging() -> None:
                     "format": "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
                 },
                 "uvicorn": {
-                    "format": "%(levelprefix)s %(message)s",
-                },
+                    "()": "uvicorn.logging.AccessFormatter",
+                    "fmt": "%(levelprefix)s %(client_addr)s - \"%(request_line)s\" %(status_code)s",
+                }
             },
 
             "handlers": handlers,
