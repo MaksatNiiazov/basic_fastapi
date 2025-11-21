@@ -38,7 +38,7 @@ def setup_logging() -> None:
         full_path = os.path.join(dated_dir, file_name)
 
         handlers["file"] = {
-            "class": "fastapi_app.core.logging_utils.custom_handlers.FriendlyRotatingFileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "formatter": "default",
             "filename": full_path,
             "maxBytes": cfg.file_max_bytes,
