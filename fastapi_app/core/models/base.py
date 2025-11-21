@@ -1,8 +1,8 @@
 from sqlalchemy import MetaData
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, declared_attr
 
-from core.config import settings
-from utils.naming import make_tablename
+from fastapi_app.core.config import settings
+from fastapi_app.utils.naming import make_tablename
 
 
 class Base(DeclarativeBase):

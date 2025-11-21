@@ -25,12 +25,15 @@ def create_app() -> FastAPI:
         version="1.0.0",
         lifespan=lifespan,
     )
+
+    # Middlewares
     setup_cors(app)
     app.add_middleware(RequestLoggingMiddleware)
 
+    # Exceptions
     setup_exception_handlers(app)
 
-    # Маршруты
+    # Routers
     app.include_router(api_router, prefix=settings.api.prefix)
 
     return app
@@ -38,12 +41,13 @@ def create_app() -> FastAPI:
 
 app = create_app()
 
+
 if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(
-        app,
+        "main:app",   # ← ВАЖНО: импорт-строка, не объект!
         host=settings.run.host,
         port=settings.run.port,
-        reload=True
+        reload=True,
     )

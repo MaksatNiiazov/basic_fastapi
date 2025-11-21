@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import (
 )
 from typing import AsyncGenerator
 
-from core.config import settings
+from fastapi_app.core.config import settings
 
 log = logging.getLogger(__name__)
 

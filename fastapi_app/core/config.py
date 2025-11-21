@@ -31,8 +31,9 @@ class DatabaseConfig(BaseModel):
 class LoggingConfig(BaseModel):
     level: str = "INFO"
     file_enabled: bool = True
-    file_path: str = "logs/app.log"
-    file_max_bytes: int = 10_000_000
+    base_dir: str = "../fastapi_app_logs"
+    file_name: str = "app.log"
+    file_max_bytes: int = 600
     file_backup_count: int = 5
     console_enabled: bool = True
 
@@ -44,7 +45,7 @@ class CorsConfig(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=(".env", ".env.example"),
+        env_file=(".env.example", ".env"),
         case_sensitive=False,
         env_nested_delimiter="__",
         env_prefix="FASTAPI_CONFIG__",
