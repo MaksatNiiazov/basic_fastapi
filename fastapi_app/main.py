@@ -1,3 +1,4 @@
+# main.py
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -18,22 +19,16 @@ async def lifespan(app: FastAPI):
 
 
 def create_app() -> FastAPI:
-    setup_logging()
-
+    # НЕ вызываем setup_logging() здесь!
     app = FastAPI(
         title="FastAPI Base Template",
         version="1.0.0",
         lifespan=lifespan,
     )
 
-    # Middlewares
     setup_cors(app)
     app.add_middleware(RequestLoggingMiddleware)
-
-    # Exceptions
     setup_exception_handlers(app)
-
-    # Routers
     app.include_router(api_router, prefix=settings.api.prefix)
 
     return app
@@ -41,3 +36,12 @@ def create_app() -> FastAPI:
 
 app = create_app()
 
+
+# ВОТ ЭТО САМОЕ ВАЖНОЕ — НАСТРОЙКА ЛОГОВ ПОСЛЕ СОЗДАНИЯ app
+setup_logging()   # ← перенесено СЮДА!
+
+
+# Дополнительно: если запускаешь через python main.py
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, log_config=None)

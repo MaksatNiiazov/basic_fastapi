@@ -32,16 +32,21 @@ class LoggingConfig(BaseModel):
     level: str = "INFO"
     file_enabled: bool = True
     base_dir: str = "../fastapi_app_logs"
-    file_name: str = "app.log"
-    file_max_bytes: int = 600
+    request_dir: str = "requests"
+    services_dir: str = "services"
+    service_file_name: str = "service.log"
+    request_file_name: str = "request.log"
+    file_max_bytes: int = 10_000_000
     file_backup_count: int = 5
     console_enabled: bool = True
+
 
 class CorsConfig(BaseModel):
     allow_origins: list[str] = ["*"]
     allow_credentials: bool = True
     allow_methods: list[str] = ["*"]
     allow_headers: list[str] = ["*"]
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
