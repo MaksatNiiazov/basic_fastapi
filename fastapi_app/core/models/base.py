@@ -1,13 +1,14 @@
 from sqlalchemy import MetaData
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, declared_attr
 
-from fastapi_app.core.config import settings
-from fastapi_app.utils.naming import make_tablename
+from core.config import settings
+from utils.naming import make_tablename
 
 
 class Base(DeclarativeBase):
     __abstract__ = True
 
+    @declared_attr.directive
     def __tablename__(cls) -> str:
         return make_tablename(cls)
 

@@ -13,7 +13,7 @@ class ApiConfig(BaseModel):
 
 
 class DatabaseConfig(BaseModel):
-    url: PostgresDsn = "postgresql+asyncpg://user:password@localhost:5432/db"
+    url: PostgresDsn = "postgresql+asyncpg://postgres:pgpassword@localhost:5432/db"
     echo: bool = False
     echo_pool: bool = False
     pool_size: int = 50
@@ -48,6 +48,15 @@ class CorsConfig(BaseModel):
     allow_headers: list[str] = ["*"]
 
 
+class JWTSettings(BaseSettings):
+    secret_key: str = "CHANGE_ME"
+    algorithm: str = "HS256"
+    access_token_expires_minutes: int = 15
+    refresh_token_expires_days: int = 7
+
+class SecuritySettings(BaseSettings):
+    password_pepper: str = "CHANGE_ME"
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(".env.example", ".env"),
@@ -61,6 +70,8 @@ class Settings(BaseSettings):
     db: DatabaseConfig = DatabaseConfig()
     logging: LoggingConfig = LoggingConfig()
     cors: CorsConfig = CorsConfig()
+    jwt: JWTSettings = JWTSettings()
+    security: SecuritySettings = SecuritySettings()
 
 
 settings = Settings()

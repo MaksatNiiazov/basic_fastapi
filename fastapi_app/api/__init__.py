@@ -1,5 +1,8 @@
-__all__ = ["api_router"]
+__all__ = [
+    "api_router",
+]
 
-from fastapi import APIRouter
+from .v1.router import api_router as v1_router
 
-api_router = APIRouter()
+
+api_router = v1_router

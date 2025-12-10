@@ -9,6 +9,15 @@ from alembic import context
 
 from core.config import settings
 from core.models.base import Base
+from core.models.model_loader import load_all_models
+
+# --- IMPORT MODELS HERE ---
+from domains.users.models.user import User
+from domains.users.models.permission import Permission
+from domains.users.models.role import Role
+from domains.users.models.role_permission import RolePermission
+from domains.users.models.employee import Employee
+# --------------------------
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -18,6 +27,7 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+load_all_models()
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
