@@ -13,6 +13,7 @@ alembic = "^1.17.2"
 python-jose = {extras = ["cryptography"], version = "^3.5.0"}
 argon2-cffi = "^25.1.0"
 passlib = {extras = ["argon2"], version = "^1.7.4"}
+python-multipart = "^0.0.20"
 
 [dependency-groups]
 dev = [

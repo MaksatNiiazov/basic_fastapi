@@ -1,7 +1,6 @@
-# fastapi_app/domains/auth/routes.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-
+from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_app.core.db import get_session
 from fastapi_app.domains.auth.deps import get_current_user
 from fastapi_app.domains.auth.schemas import (
@@ -26,12 +25,15 @@ def get_auth_service(
 
 @router.post("/login", response_model=TokenPair)
 async def login(
-        data: LoginRequest,
+        form_data: OAuth2PasswordRequestForm = Depends(),
         session: AsyncSession = Depends(get_session),
         service: AuthService = Depends(get_auth_service),
 ):
     try:
-        return await service.login(session, data)
+        return await service.login(
+            session,
+            LoginRequest(email=form_data.username, password=form_data.password),
+        )
     except ValueError as exc:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
